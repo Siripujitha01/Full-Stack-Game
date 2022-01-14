@@ -11,7 +11,7 @@ loadImage("/images/idle/1.png",(img)=>{
 })
 
 let imagePath=(frame,animation)=>{
-    return "/images/"+animation+"/"+frame+".png";
+    return "images/"+animation+"/"+frame+".png";
 }
 let frames={
     idle:[1,2,3,4,5,6,7,8],
