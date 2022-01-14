@@ -17,12 +17,14 @@ let frames={
     idle:[1,2,3,4,5,6,7,8],
     kick:[1,2,3,4,5,6,7],
     punch:[1,2,3,4,5,6,7],
-
+    backward:[1,2,3,4,5,6],
+    forward:[1,2,3,4,5,6],
+    block:[1,2,3,4,5,6,7,8,9],
 };
 let loadImages=(callback)=>{
     let imageload=0;
-    let image={idle:[],kick:[],punch:[]};
-    ["idle","kick","punch"].forEach((animation)=>{
+    let image={idle:[],kick:[],punch:[],backward:[],forward:[],block:[]};
+    ["idle","kick","punch","backward","forward","block"].forEach((animation)=>{
         let animationFrame=frames[animation];
         imageload=imageload+animationFrame.length;
         animationFrame.forEach((frame)=>{
@@ -39,13 +41,13 @@ let loadImages=(callback)=>{
     });
 };
 let animate=(c,image,animation,callback)=>{
-    image[animation].forEach((image,index)=>{
+    image[animation].forEach((imag,index)=>{
         setTimeout(()=>{
             c.clearRect(0,0,500,500);
-           c.drawImage(image,0,0,500,500);
+           c.drawImage(imag,0,0,500,500);
         },index*100);
     });
-    setTimeout(callback,image.length*100);
+    setTimeout(callback,image[animation].length*100);
 };
 loadImages((image)=>{
     let queued=[];
@@ -65,6 +67,15 @@ queued.push("kick");
 document.getElementById("punch").onclick=()=>{
     queued.push("punch");
 };
+document.getElementById("back").onclick=()=>{
+    queued.push("backward");
+};
+document.getElementById("for").onclick=()=>{
+    queued.push("forward");
+};
+document.getElementById("block").onclick=()=>{
+    queued.push("block");
+};
 document.addEventListener("keyup",(event)=>{
     const key=event.key;
     if(key==="ArrowLeft")
@@ -75,6 +86,11 @@ document.addEventListener("keyup",(event)=>{
     {
         queued.push("punch");
     }
+    else if(key==="ArrowUp")
+    queued.push("forward");
+    else if(key==="ArrowDown")
+    queued.push("backward");
+
 });
 });
  
